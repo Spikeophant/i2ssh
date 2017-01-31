@@ -16,13 +16,13 @@ class AppleScript:
 
     _DEFAULT_CMD = 'ssh'
     _DEFAULT_DELAY = 0.1
-    _DISABLED_CMD = 'stty -isig -icanon -echo && echo UNUSED && cat > /dev/null'
+    _DISABLED_CMD = 'stty -isig -icanon -echo; and echo UNUSED; and cat > /dev/null'
     _TEMPLATE = '''
         tell application "iTerm"
             -- panes
             set panes to {}
             #for @pane in @panes:
-            set panes to panes & {{cmd:"unset HISTFILE && @pane.cmd", name:"@pane.name"}}
+            set panes to panes & {{cmd:"unset HISTFILE; and @pane.cmd", name:"@pane.name"}}
             #end
 
             -- layout @layout_name
