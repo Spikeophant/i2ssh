@@ -22,7 +22,7 @@ class AppleScript:
             -- panes
             set panes to {}
             #for @pane in @panes:
-            set panes to panes & {{cmd:"unset HISTFILE; and @pane.cmd", name:"@pane.name"}}
+            set panes to panes & {{cmd:"set -e HISTFILE; and @pane.cmd", name:"@pane.name"}}
             #end
 
             -- layout @layout_name
