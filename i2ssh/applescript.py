@@ -21,8 +21,13 @@ class AppleScript:
         tell application "iTerm"
             -- panes
             set panes to {}
+            set usershell to do shell script "echo $SHELL | awk -F/ '{print $NF}'"
             #for @pane in @panes:
-            set panes to panes & {{cmd:"set -e HISTFILE; @pane.cmd", name:"@pane.name"}}
+            if ((usershell as string) is equal to "fish") then
+                set panes to panes & {{cmd:"@pane.cmd", name:"@pane.name"}}
+            else
+                set panes to panes & {{cmd:"unset HISTFILE && @pane.cmd", name:"@pane.name"}}
+            end if
             #end
 
             -- layout @layout_name
